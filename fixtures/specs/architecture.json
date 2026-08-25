@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "documentId": "fixture-microservice-architecture",
+  "title": "微服务架构",
+  "type": "architecture",
+  "groups": [
+    { "id": "access", "label": "接入层" },
+    { "id": "service", "label": "服务层" },
+    { "id": "data", "label": "数据层" }
+  ],
+  "nodes": [
+    { "id": "client", "label": "客户端", "kind": "actor", "groupId": "access", "level": 0 },
+    { "id": "gateway", "label": "API 网关", "kind": "service", "groupId": "access", "level": 1 },
+    { "id": "auth", "label": "认证服务", "kind": "service", "groupId": "service", "level": 2 },
+    { "id": "order", "label": "订单服务", "kind": "service", "groupId": "service", "level": 2 },
+    { "id": "database", "label": "业务数据库", "kind": "entity", "groupId": "data", "level": 3 }
+  ],
+  "edges": [
+    { "id": "a1", "from": "client", "to": "gateway" },
+    { "id": "a2", "from": "gateway", "to": "auth" },
+    { "id": "a3", "from": "gateway", "to": "order" },
+    { "id": "a4", "from": "auth", "to": "database" },
+    { "id": "a5", "from": "order", "to": "database" }
+  ]
+}

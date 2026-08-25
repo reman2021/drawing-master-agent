@@ -1,0 +1,28 @@
+{
+  "name": "drawing-master-agent",
+  "version": "0.1.0",
+  "description": "A self-contained OpenCode subagent for creating and editing Excalidraw diagrams.",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reman2021/drawing-master-agent.git"
+  },
+  "keywords": [
+    "opencode",
+    "agent",
+    "excalidraw",
+    "diagram"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "drawing-master": "node runtime/cli.mjs",
+    "install:global": "node scripts/install.mjs",
+    "uninstall:global": "node scripts/uninstall.mjs",
+    "package:release": "node scripts/package.mjs"
+  }
+}

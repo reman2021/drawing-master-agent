@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "documentId": "fixture-login-flow",
+  "title": "用户登录流程",
+  "type": "flowchart",
+  "nodes": [
+    { "id": "start", "label": "开始", "kind": "start" },
+    { "id": "input", "label": "输入账号和密码", "kind": "process" },
+    { "id": "valid", "label": "凭证有效？", "kind": "decision" },
+    { "id": "success", "label": "进入系统", "kind": "end" },
+    { "id": "failure", "label": "提示错误", "kind": "process", "level": 3 }
+  ],
+  "edges": [
+    { "id": "e1", "from": "start", "to": "input" },
+    { "id": "e2", "from": "input", "to": "valid" },
+    { "id": "e3", "from": "valid", "to": "success", "label": "是" },
+    { "id": "e4", "from": "valid", "to": "failure", "label": "否" }
+  ]
+}

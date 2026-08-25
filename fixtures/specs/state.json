@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "documentId": "fixture-order-state",
+  "title": "订单状态",
+  "type": "state",
+  "nodes": [
+    { "id": "start", "label": "开始", "kind": "start" },
+    { "id": "draft", "label": "草稿", "kind": "state" },
+    { "id": "submitted", "label": "已提交", "kind": "state" },
+    { "id": "paid", "label": "已支付", "kind": "state" },
+    { "id": "closed", "label": "已关闭", "kind": "end" }
+  ],
+  "edges": [
+    { "id": "t1", "from": "start", "to": "draft" },
+    { "id": "t2", "from": "draft", "to": "submitted", "label": "提交" },
+    { "id": "t3", "from": "submitted", "to": "paid", "label": "支付成功" },
+    { "id": "t4", "from": "paid", "to": "closed", "label": "完成" }
+  ]
+}

@@ -1,0 +1,873 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "dm-node-start-1qupgpj",
+      "type": "ellipse",
+      "x": 120,
+      "y": 120,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#ffedd5",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1818379245,
+      "version": 1,
+      "versionNonce": 1268452545,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-start-1l55gt3"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-e1-1ikfyv8"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node",
+          "semanticId": "start",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-start-1l55gt3",
+      "type": "text",
+      "x": 200,
+      "y": 151.5,
+      "width": 40,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 767983904,
+      "version": 1,
+      "versionNonce": 969137594,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node-label",
+          "semanticId": "start",
+          "schemaVersion": 1
+        }
+      },
+      "text": "开始",
+      "originalText": "开始",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-start-1qupgpj",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-node-input-1uscdjn",
+      "type": "rectangle",
+      "x": 120,
+      "y": 328,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#fef3c7",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 76698425,
+      "version": 1,
+      "versionNonce": 1499158683,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-input-1p2sdn7"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-e1-1ikfyv8"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-e2-1jeery5"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node",
+          "semanticId": "input",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-input-1p2sdn7",
+      "type": "text",
+      "x": 150,
+      "y": 359.5,
+      "width": 140,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 1484756608,
+      "version": 1,
+      "versionNonce": 455141530,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node-label",
+          "semanticId": "input",
+          "schemaVersion": 1
+        }
+      },
+      "text": "输入账号和密码",
+      "originalText": "输入账号和密码",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-input-1uscdjn",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-node-valid-1h0t2bt",
+      "type": "diamond",
+      "x": 120,
+      "y": 536,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#fef3c7",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 504409609,
+      "version": 1,
+      "versionNonce": 313229669,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-valid-1bb92fd"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-e2-1jeery5"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-e3-1j4f696"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-e4-1hqh5sb"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node",
+          "semanticId": "valid",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-valid-1bb92fd",
+      "type": "text",
+      "x": 170,
+      "y": 567.5,
+      "width": 100,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 641669250,
+      "version": 1,
+      "versionNonce": 270990284,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node-label",
+          "semanticId": "valid",
+          "schemaVersion": 1
+        }
+      },
+      "text": "凭证有效？",
+      "originalText": "凭证有效？",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-valid-1h0t2bt",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-node-success-1f9e9m0",
+      "type": "ellipse",
+      "x": 500,
+      "y": 744,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#dcfce7",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1416598704,
+      "version": 1,
+      "versionNonce": 9200394,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-success-or05ns"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-e3-1j4f696"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node",
+          "semanticId": "success",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-success-or05ns",
+      "type": "text",
+      "x": 560,
+      "y": 775.5,
+      "width": 80,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 1417965523,
+      "version": 1,
+      "versionNonce": 1953378823,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node-label",
+          "semanticId": "success",
+          "schemaVersion": 1
+        }
+      },
+      "text": "进入系统",
+      "originalText": "进入系统",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-success-1f9e9m0",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-node-failure-jxpuo9",
+      "type": "rectangle",
+      "x": 120,
+      "y": 744,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#ffedd5",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 2110119049,
+      "version": 1,
+      "versionNonce": 1021555941,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-failure-1sgfsp5"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-e4-1hqh5sb"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node",
+          "semanticId": "failure",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-failure-1sgfsp5",
+      "type": "text",
+      "x": 180,
+      "y": 775.5,
+      "width": 80,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 1023799100,
+      "version": 1,
+      "versionNonce": 965469188,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "node-label",
+          "semanticId": "failure",
+          "schemaVersion": 1
+        }
+      },
+      "text": "提示错误",
+      "originalText": "提示错误",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-failure-jxpuo9",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-edge-e1-1ikfyv8",
+      "type": "arrow",
+      "x": 220,
+      "y": 208,
+      "width": 0,
+      "height": 120,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1000156220,
+      "version": 1,
+      "versionNonce": 886815160,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "edge",
+          "semanticId": "e1",
+          "schemaVersion": 1,
+          "chartType": "flowchart"
+        }
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          120
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "dm-node-start-1qupgpj",
+        "fixedPoint": [
+          0.5,
+          1
+        ],
+        "mode": "orbit"
+      },
+      "endBinding": {
+        "elementId": "dm-node-input-1uscdjn",
+        "fixedPoint": [
+          0.5,
+          0
+        ],
+        "mode": "orbit"
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "dm-edge-e2-1jeery5",
+      "type": "arrow",
+      "x": 220,
+      "y": 416,
+      "width": 0,
+      "height": 120,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1996798511,
+      "version": 1,
+      "versionNonce": 2008124027,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "edge",
+          "semanticId": "e2",
+          "schemaVersion": 1,
+          "chartType": "flowchart"
+        }
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          120
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "dm-node-input-1uscdjn",
+        "fixedPoint": [
+          0.5,
+          1
+        ],
+        "mode": "orbit"
+      },
+      "endBinding": {
+        "elementId": "dm-node-valid-1h0t2bt",
+        "fixedPoint": [
+          0.5,
+          0
+        ],
+        "mode": "orbit"
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "dm-edge-e3-1j4f696",
+      "type": "arrow",
+      "x": 320,
+      "y": 580,
+      "width": 180,
+      "height": 208,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 413661510,
+      "version": 1,
+      "versionNonce": 1836579152,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-edge-label-e3-12pn5h7"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "edge",
+          "semanticId": "e3",
+          "schemaVersion": 1,
+          "chartType": "flowchart"
+        }
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          180,
+          208
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "dm-node-valid-1h0t2bt",
+        "fixedPoint": [
+          1,
+          0.5
+        ],
+        "mode": "orbit"
+      },
+      "endBinding": {
+        "elementId": "dm-node-success-1f9e9m0",
+        "fixedPoint": [
+          0,
+          0.5
+        ],
+        "mode": "orbit"
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "dm-edge-label-e3-12pn5h7",
+      "type": "text",
+      "x": 402,
+      "y": 666,
+      "width": 16,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "#ffffff",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 500737697,
+      "version": 1,
+      "versionNonce": 1179261381,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "edge-label",
+          "semanticId": "e3",
+          "schemaVersion": 1
+        }
+      },
+      "text": "是",
+      "originalText": "是",
+      "fontSize": 16,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-edge-e3-1j4f696",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 16
+    },
+    {
+      "id": "dm-edge-e4-1hqh5sb",
+      "type": "arrow",
+      "x": 220,
+      "y": 624,
+      "width": 0,
+      "height": 120,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 118854097,
+      "version": 1,
+      "versionNonce": 1231382387,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-edge-label-e4-143l5y2"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "edge",
+          "semanticId": "e4",
+          "schemaVersion": 1,
+          "chartType": "flowchart"
+        }
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          120
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "dm-node-valid-1h0t2bt",
+        "fixedPoint": [
+          0.5,
+          1
+        ],
+        "mode": "orbit"
+      },
+      "endBinding": {
+        "elementId": "dm-node-failure-jxpuo9",
+        "fixedPoint": [
+          0.5,
+          0
+        ],
+        "mode": "orbit"
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "dm-edge-label-e4-143l5y2",
+      "type": "text",
+      "x": 212,
+      "y": 666,
+      "width": 16,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "#ffffff",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 1898539672,
+      "version": 1,
+      "versionNonce": 868157090,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-login-flow",
+          "kind": "edge-label",
+          "semanticId": "e4",
+          "schemaVersion": 1
+        }
+      },
+      "text": "否",
+      "originalText": "否",
+      "fontSize": 16,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-edge-e4-1hqh5sb",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 16
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  },
+  "files": {},
+  "drawingMaster": {
+    "documentId": "fixture-login-flow",
+    "schemaVersion": 1,
+    "runtimeVersion": "0.1.0",
+    "chartType": "flowchart"
+  }
+}

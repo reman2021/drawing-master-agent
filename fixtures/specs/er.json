@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "documentId": "fixture-commerce-er",
+  "title": "电商核心实体",
+  "type": "er",
+  "nodes": [
+    { "id": "user", "label": "用户\nid PK\nname", "kind": "entity" },
+    { "id": "order", "label": "订单\nid PK\nuser_id FK", "kind": "entity" },
+    { "id": "item", "label": "订单项\nid PK\norder_id FK", "kind": "entity" }
+  ],
+  "edges": [
+    { "id": "r1", "from": "user", "to": "order", "label": "1:N" },
+    { "id": "r2", "from": "order", "to": "item", "label": "1:N" }
+  ]
+}

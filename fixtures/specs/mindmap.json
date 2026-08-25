@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "documentId": "fixture-learning-mindmap",
+  "title": "学习计划",
+  "type": "mindmap",
+  "nodes": [
+    { "id": "root", "label": "学习计划", "kind": "root" },
+    { "id": "theory", "label": "理论基础", "kind": "concept" },
+    { "id": "practice", "label": "项目实践", "kind": "concept" },
+    { "id": "review", "label": "复盘总结", "kind": "concept" },
+    { "id": "share", "label": "知识分享", "kind": "concept" }
+  ],
+  "edges": [
+    { "id": "m1", "from": "root", "to": "theory" },
+    { "id": "m2", "from": "root", "to": "practice" },
+    { "id": "m3", "from": "root", "to": "review" },
+    { "id": "m4", "from": "root", "to": "share" }
+  ]
+}

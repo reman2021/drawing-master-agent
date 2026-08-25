@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "documentId": "fixture-approval-swimlane",
+  "title": "采购审批流程",
+  "type": "swimlane",
+  "lanes": [
+    { "id": "applicant", "label": "申请人", "order": 0 },
+    { "id": "manager", "label": "部门经理", "order": 1 },
+    { "id": "finance", "label": "财务", "order": 2 }
+  ],
+  "nodes": [
+    { "id": "create", "label": "提交采购申请", "kind": "process", "laneId": "applicant", "order": 0 },
+    { "id": "review", "label": "审核必要性", "kind": "decision", "laneId": "manager", "order": 1 },
+    { "id": "budget", "label": "检查预算", "kind": "decision", "laneId": "finance", "order": 2 },
+    { "id": "notify", "label": "通知结果", "kind": "end", "laneId": "applicant", "order": 3 }
+  ],
+  "edges": [
+    { "id": "w1", "from": "create", "to": "review" },
+    { "id": "w2", "from": "review", "to": "budget", "label": "通过" },
+    { "id": "w3", "from": "budget", "to": "notify", "label": "通过" }
+  ]
+}

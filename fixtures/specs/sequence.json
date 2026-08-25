@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "documentId": "fixture-login-sequence",
+  "title": "登录交互时序",
+  "type": "sequence",
+  "nodes": [
+    { "id": "user", "label": "用户", "kind": "actor", "order": 0 },
+    { "id": "web", "label": "Web 应用", "kind": "service", "order": 1 },
+    { "id": "auth", "label": "认证服务", "kind": "service", "order": 2 }
+  ],
+  "edges": [
+    { "id": "s1", "from": "user", "to": "web", "label": "提交凭证" },
+    { "id": "s2", "from": "web", "to": "auth", "label": "验证凭证" },
+    { "id": "s3", "from": "auth", "to": "web", "label": "返回令牌", "kind": "return" },
+    { "id": "s4", "from": "web", "to": "user", "label": "登录成功", "kind": "return" }
+  ]
+}

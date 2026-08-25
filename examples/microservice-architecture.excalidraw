@@ -1,0 +1,965 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "dm-node-client-1lgnbb1",
+      "type": "ellipse",
+      "x": 120,
+      "y": 120,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#dbeafe",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1612256301,
+      "version": 1,
+      "versionNonce": 1656436857,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-access-1edhu9r",
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-client-d9jmt3"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a1-mh4bx7"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node",
+          "semanticId": "client",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-client-d9jmt3",
+      "type": "text",
+      "x": 190,
+      "y": 151.5,
+      "width": 60,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 1992947066,
+      "version": 1,
+      "versionNonce": 1580947924,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-access-1edhu9r",
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node-label",
+          "semanticId": "client",
+          "schemaVersion": 1
+        }
+      },
+      "text": "客户端",
+      "originalText": "客户端",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-client-1lgnbb1",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-node-gateway-178dv5c",
+      "type": "rectangle",
+      "x": 120,
+      "y": 328,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#ffedd5",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 444594776,
+      "version": 1,
+      "versionNonce": 1644461106,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-access-1edhu9r",
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-gateway-1ifk2ra"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a1-mh4bx7"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a2-mr3xm6"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a3-n13jb5"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node",
+          "semanticId": "gateway",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-gateway-1ifk2ra",
+      "type": "text",
+      "x": 177.9,
+      "y": 359.5,
+      "width": 84.2,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 380400107,
+      "version": 1,
+      "versionNonce": 1583445695,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-access-1edhu9r",
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node-label",
+          "semanticId": "gateway",
+          "schemaVersion": 1
+        }
+      },
+      "text": "API 网关",
+      "originalText": "API 网关",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-gateway-178dv5c",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-node-auth-kffo8k",
+      "type": "rectangle",
+      "x": 120,
+      "y": 536,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#fef3c7",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1768941966,
+      "version": 1,
+      "versionNonce": 599545352,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-service-1g60b0g",
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-auth-1timxg6"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a2-mr3xm6"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a4-nb3504"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node",
+          "semanticId": "auth",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-auth-1timxg6",
+      "type": "text",
+      "x": 180,
+      "y": 567.5,
+      "width": 80,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 1163139001,
+      "version": 1,
+      "versionNonce": 739183383,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-service-1g60b0g",
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node-label",
+          "semanticId": "auth",
+          "schemaVersion": 1
+        }
+      },
+      "text": "认证服务",
+      "originalText": "认证服务",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-auth-kffo8k",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-node-order-iykv9y",
+      "type": "rectangle",
+      "x": 500,
+      "y": 536,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#ffedd5",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 806172562,
+      "version": 1,
+      "versionNonce": 1640313246,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-service-1g60b0g",
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-order-1e96skw"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a3-n13jb5"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a5-nl2qp3"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node",
+          "semanticId": "order",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-order-1e96skw",
+      "type": "text",
+      "x": 560,
+      "y": 567.5,
+      "width": 80,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 1931428817,
+      "version": 1,
+      "versionNonce": 1498118831,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-service-1g60b0g",
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node-label",
+          "semanticId": "order",
+          "schemaVersion": 1
+        }
+      },
+      "text": "订单服务",
+      "originalText": "订单服务",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-order-iykv9y",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-node-database-1vtqfr7",
+      "type": "rectangle",
+      "x": 120,
+      "y": 744,
+      "width": 200,
+      "height": 88,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "#ffedd5",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1678533577,
+      "version": 1,
+      "versionNonce": 1361166379,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-data-1bstz8h",
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "dm-label-database-1s11vmt"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a4-nb3504"
+        },
+        {
+          "type": "arrow",
+          "id": "dm-edge-a5-nl2qp3"
+        }
+      ],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node",
+          "semanticId": "database",
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "id": "dm-label-database-1s11vmt",
+      "type": "text",
+      "x": 170,
+      "y": 775.5,
+      "width": 100,
+      "height": 25,
+      "angle": 0,
+      "strokeColor": "#1e293b",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": null,
+      "seed": 165247686,
+      "version": 1,
+      "versionNonce": 510055890,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-data-1bstz8h",
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "node-label",
+          "semanticId": "database",
+          "schemaVersion": 1
+        }
+      },
+      "text": "业务数据库",
+      "originalText": "业务数据库",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "dm-node-database-1vtqfr7",
+      "autoResize": true,
+      "lineHeight": 1.25,
+      "baseline": 20
+    },
+    {
+      "id": "dm-edge-a1-mh4bx7",
+      "type": "arrow",
+      "x": 220,
+      "y": 208,
+      "width": 0,
+      "height": 120,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 382380799,
+      "version": 1,
+      "versionNonce": 520535461,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": "dm-frame-access-1edhu9r",
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "edge",
+          "semanticId": "a1",
+          "schemaVersion": 1,
+          "chartType": "architecture"
+        }
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          120
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "dm-node-client-1lgnbb1",
+        "fixedPoint": [
+          0.5,
+          1
+        ],
+        "mode": "orbit"
+      },
+      "endBinding": {
+        "elementId": "dm-node-gateway-178dv5c",
+        "fixedPoint": [
+          0.5,
+          0
+        ],
+        "mode": "orbit"
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "dm-edge-a2-mr3xm6",
+      "type": "arrow",
+      "x": 220,
+      "y": 416,
+      "width": 0,
+      "height": 120,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 643230762,
+      "version": 1,
+      "versionNonce": 1269525046,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "edge",
+          "semanticId": "a2",
+          "schemaVersion": 1,
+          "chartType": "architecture"
+        }
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          120
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "dm-node-gateway-178dv5c",
+        "fixedPoint": [
+          0.5,
+          1
+        ],
+        "mode": "orbit"
+      },
+      "endBinding": {
+        "elementId": "dm-node-auth-kffo8k",
+        "fixedPoint": [
+          0.5,
+          0
+        ],
+        "mode": "orbit"
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "dm-edge-a3-n13jb5",
+      "type": "arrow",
+      "x": 320,
+      "y": 372,
+      "width": 180,
+      "height": 208,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 298434145,
+      "version": 1,
+      "versionNonce": 1440510909,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "edge",
+          "semanticId": "a3",
+          "schemaVersion": 1,
+          "chartType": "architecture"
+        }
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          180,
+          208
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "dm-node-gateway-178dv5c",
+        "fixedPoint": [
+          1,
+          0.5
+        ],
+        "mode": "orbit"
+      },
+      "endBinding": {
+        "elementId": "dm-node-order-iykv9y",
+        "fixedPoint": [
+          0,
+          0.5
+        ],
+        "mode": "orbit"
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "dm-edge-a4-nb3504",
+      "type": "arrow",
+      "x": 220,
+      "y": 624,
+      "width": 0,
+      "height": 120,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 529020972,
+      "version": 1,
+      "versionNonce": 738282022,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "edge",
+          "semanticId": "a4",
+          "schemaVersion": 1,
+          "chartType": "architecture"
+        }
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          120
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "dm-node-auth-kffo8k",
+        "fixedPoint": [
+          0.5,
+          1
+        ],
+        "mode": "orbit"
+      },
+      "endBinding": {
+        "elementId": "dm-node-database-1vtqfr7",
+        "fixedPoint": [
+          0.5,
+          0
+        ],
+        "mode": "orbit"
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "dm-edge-a5-nl2qp3",
+      "type": "arrow",
+      "x": 500,
+      "y": 580,
+      "width": 180,
+      "height": 208,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1583300253,
+      "version": 1,
+      "versionNonce": 51274609,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "edge",
+          "semanticId": "a5",
+          "schemaVersion": 1,
+          "chartType": "architecture"
+        }
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -180,
+          208
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "dm-node-order-iykv9y",
+        "fixedPoint": [
+          0,
+          0.5
+        ],
+        "mode": "orbit"
+      },
+      "endBinding": {
+        "elementId": "dm-node-database-1vtqfr7",
+        "fixedPoint": [
+          1,
+          0.5
+        ],
+        "mode": "orbit"
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "dm-frame-access-1edhu9r",
+      "type": "frame",
+      "x": 56,
+      "y": 56,
+      "width": 328,
+      "height": 424,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1459246453,
+      "version": 1,
+      "versionNonce": 130496295,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "frame",
+          "semanticId": "access",
+          "schemaVersion": 1
+        }
+      },
+      "name": "接入层"
+    },
+    {
+      "id": "dm-frame-service-1g60b0g",
+      "type": "frame",
+      "x": 56,
+      "y": 472,
+      "width": 708,
+      "height": 216,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 972584458,
+      "version": 1,
+      "versionNonce": 1443099684,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "frame",
+          "semanticId": "service",
+          "schemaVersion": 1
+        }
+      },
+      "name": "服务层"
+    },
+    {
+      "id": "dm-frame-data-1bstz8h",
+      "type": "frame",
+      "x": 56,
+      "y": 680,
+      "width": 328,
+      "height": 216,
+      "angle": 0,
+      "strokeColor": "#334155",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roughness": 0,
+      "opacity": 100,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1559972609,
+      "version": 1,
+      "versionNonce": 2073016799,
+      "index": null,
+      "isDeleted": false,
+      "groupIds": [],
+      "frameId": null,
+      "boundElements": [],
+      "updated": 1,
+      "link": null,
+      "locked": false,
+      "customData": {
+        "drawingMaster": {
+          "documentId": "fixture-microservice-architecture",
+          "kind": "frame",
+          "semanticId": "data",
+          "schemaVersion": 1
+        }
+      },
+      "name": "数据层"
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  },
+  "files": {},
+  "drawingMaster": {
+    "documentId": "fixture-microservice-architecture",
+    "schemaVersion": 1,
+    "runtimeVersion": "0.1.0",
+    "chartType": "architecture"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "documentId": "fixture-order-classes",
+  "title": "订单领域类图",
+  "type": "class",
+  "nodes": [
+    { "id": "entity", "label": "Entity\n+ id\n+ createdAt", "kind": "class", "level": 0 },
+    { "id": "order", "label": "Order\n+ status\n+ submit()", "kind": "class", "level": 1 },
+    { "id": "item", "label": "OrderItem\n+ quantity\n+ subtotal()", "kind": "class", "level": 2 }
+  ],
+  "edges": [
+    { "id": "c1", "from": "order", "to": "entity", "kind": "inheritance" },
+    { "id": "c2", "from": "order", "to": "item", "kind": "composition", "label": "1..*" }
+  ]
+}
