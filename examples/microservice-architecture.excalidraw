@@ -53,10 +53,10 @@
     {
       "id": "dm-label-client-d9jmt3",
       "type": "text",
-      "x": 190,
-      "y": 151.5,
-      "width": 60,
-      "height": 25,
+      "x": 184,
+      "y": 149,
+      "width": 72,
+      "height": 30,
       "angle": 0,
       "strokeColor": "#1e293b",
       "backgroundColor": "transparent",
@@ -87,14 +87,14 @@
       },
       "text": "客户端",
       "originalText": "客户端",
-      "fontSize": 20,
+      "fontSize": 24,
       "fontFamily": 5,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "dm-node-client-1lgnbb1",
       "autoResize": true,
       "lineHeight": 1.25,
-      "baseline": 20
+      "baseline": 24
     },
     {
       "id": "dm-node-gateway-178dv5c",
@@ -154,10 +154,10 @@
     {
       "id": "dm-label-gateway-1ifk2ra",
       "type": "text",
-      "x": 177.9,
-      "y": 359.5,
-      "width": 84.2,
-      "height": 25,
+      "x": 169.48,
+      "y": 357,
+      "width": 101.04,
+      "height": 30,
       "angle": 0,
       "strokeColor": "#1e293b",
       "backgroundColor": "transparent",
@@ -188,14 +188,14 @@
       },
       "text": "API 网关",
       "originalText": "API 网关",
-      "fontSize": 20,
+      "fontSize": 24,
       "fontFamily": 5,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "dm-node-gateway-178dv5c",
       "autoResize": true,
       "lineHeight": 1.25,
-      "baseline": 20
+      "baseline": 24
     },
     {
       "id": "dm-node-auth-kffo8k",
@@ -251,10 +251,10 @@
     {
       "id": "dm-label-auth-1timxg6",
       "type": "text",
-      "x": 180,
-      "y": 567.5,
-      "width": 80,
-      "height": 25,
+      "x": 172,
+      "y": 565,
+      "width": 96,
+      "height": 30,
       "angle": 0,
       "strokeColor": "#1e293b",
       "backgroundColor": "transparent",
@@ -285,14 +285,14 @@
       },
       "text": "认证服务",
       "originalText": "认证服务",
-      "fontSize": 20,
+      "fontSize": 24,
       "fontFamily": 5,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "dm-node-auth-kffo8k",
       "autoResize": true,
       "lineHeight": 1.25,
-      "baseline": 20
+      "baseline": 24
     },
     {
       "id": "dm-node-order-iykv9y",
@@ -348,10 +348,10 @@
     {
       "id": "dm-label-order-1e96skw",
       "type": "text",
-      "x": 560,
-      "y": 567.5,
-      "width": 80,
-      "height": 25,
+      "x": 552,
+      "y": 565,
+      "width": 96,
+      "height": 30,
       "angle": 0,
       "strokeColor": "#1e293b",
       "backgroundColor": "transparent",
@@ -382,14 +382,14 @@
       },
       "text": "订单服务",
       "originalText": "订单服务",
-      "fontSize": 20,
+      "fontSize": 24,
       "fontFamily": 5,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "dm-node-order-iykv9y",
       "autoResize": true,
       "lineHeight": 1.25,
-      "baseline": 20
+      "baseline": 24
     },
     {
       "id": "dm-node-database-1vtqfr7",
@@ -445,10 +445,10 @@
     {
       "id": "dm-label-database-1s11vmt",
       "type": "text",
-      "x": 170,
-      "y": 775.5,
-      "width": 100,
-      "height": 25,
+      "x": 160,
+      "y": 773,
+      "width": 120,
+      "height": 30,
       "angle": 0,
       "strokeColor": "#1e293b",
       "backgroundColor": "transparent",
@@ -479,14 +479,14 @@
       },
       "text": "业务数据库",
       "originalText": "业务数据库",
-      "fontSize": 20,
+      "fontSize": 24,
       "fontFamily": 5,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "dm-node-database-1vtqfr7",
       "autoResize": true,
       "lineHeight": 1.25,
-      "baseline": 20
+      "baseline": 24
     },
     {
       "id": "dm-edge-a1-mh4bx7",
@@ -632,7 +632,7 @@
       "x": 320,
       "y": 372,
       "width": 180,
-      "height": 208,
+      "height": 180,
       "angle": 0,
       "strokeColor": "#334155",
       "backgroundColor": "transparent",
@@ -670,8 +670,16 @@
           0
         ],
         [
+          16,
+          0
+        ],
+        [
+          16,
+          180
+        ],
+        [
           180,
-          208
+          180
         ]
       ],
       "lastCommittedPoint": null,
@@ -687,7 +695,7 @@
         "elementId": "dm-node-order-iykv9y",
         "fixedPoint": [
           0,
-          0.5
+          0.181818
         ],
         "mode": "orbit"
       },
@@ -767,10 +775,10 @@
     {
       "id": "dm-edge-a5-nl2qp3",
       "type": "arrow",
-      "x": 500,
-      "y": 580,
+      "x": 320,
+      "y": 608,
       "width": 180,
-      "height": 208,
+      "height": 180,
       "angle": 0,
       "strokeColor": "#334155",
       "backgroundColor": "transparent",
@@ -804,12 +812,20 @@
       },
       "points": [
         [
-          0,
+          180,
           0
         ],
         [
-          -180,
-          208
+          16,
+          0
+        ],
+        [
+          16,
+          180
+        ],
+        [
+          0,
+          180
         ]
       ],
       "lastCommittedPoint": null,
@@ -817,7 +833,7 @@
         "elementId": "dm-node-order-iykv9y",
         "fixedPoint": [
           0,
-          0.5
+          0.818182
         ],
         "mode": "orbit"
       },
@@ -959,7 +975,8 @@
   "drawingMaster": {
     "documentId": "fixture-microservice-architecture",
     "schemaVersion": 1,
-    "runtimeVersion": "0.1.0",
+    "runtimeVersion": "0.3.0",
+    "specHash": "7eeebe05b48e5ca0f4d99eb3bb3300d5919d4b2f1071eb6e03693279a80bec14",
     "chartType": "architecture"
   }
 }

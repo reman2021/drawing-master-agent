@@ -1,7 +1,15 @@
 import path from "node:path";
+import { assertSpecSchema } from "./schema-validator.mjs";
 
-export const SCHEMA_VERSION = 1;
-export const RUNTIME_VERSION = "0.1.0";
+export const SCHEMA_VERSION = 2;
+export const RUNTIME_VERSION = "0.3.0";
+
+export const DEFAULT_FONT_SIZES = Object.freeze({
+  node: 24,
+  edge: 18,
+  annotation: 18,
+  frame: 20,
+});
 
 export const CORE_CHART_TYPES = new Set([
   "flowchart",
@@ -12,6 +20,7 @@ export const CORE_CHART_TYPES = new Set([
   "class",
   "state",
   "swimlane",
+  "dataflow",
 ]);
 
 export const EXTENDED_CHART_TYPES = new Set([
@@ -20,7 +29,6 @@ export const EXTENDED_CHART_TYPES = new Set([
   "timeline",
   "tree",
   "network",
-  "dataflow",
   "concept",
   "fishbone",
   "swot",
@@ -94,6 +102,7 @@ export function commonElement({
   semanticId,
   frameId = null,
   updated = 1,
+  schemaVersion = SCHEMA_VERSION,
 }) {
   return {
     id,
@@ -127,7 +136,7 @@ export function commonElement({
         documentId,
         kind: semanticKind,
         semanticId,
-        schemaVersion: SCHEMA_VERSION,
+        schemaVersion,
       },
     },
   };
@@ -142,9 +151,12 @@ export function isFiniteNumber(value) {
   return typeof value === "number" && Number.isFinite(value);
 }
 
-export function migrateSpec(input) {
+export function migrateSpec(input, options = {}) {
   const spec = clone(input);
   const version = spec.schemaVersion ?? 0;
+  const targetVersion = typeof options === "number"
+    ? options
+    : options.targetVersion ?? SCHEMA_VERSION;
 
   if (version > SCHEMA_VERSION) {
     throw new Error(
@@ -160,11 +172,22 @@ export function migrateSpec(input) {
     spec.schemaVersion = 1;
   }
 
+  if (![1, 2].includes(targetVersion) || targetVersion < spec.schemaVersion) {
+    throw new Error(`Unsupported DiagramSpec migration target ${targetVersion}.`);
+  }
+  if (spec.schemaVersion === 1 && targetVersion === 2) {
+    const migrated = migrateV1ToV2(spec);
+    assertSpecSchema(migrated, { version: 2 });
+    return migrated;
+  }
+
   return spec;
 }
 
 export function normalizeSpec(input) {
-  const spec = migrateSpec(input);
+  const declaredVersion = input?.schemaVersion ?? 0;
+  const spec = migrateSpec(input, { targetVersion: declaredVersion === 0 ? 1 : declaredVersion });
+  assertSpecSchema(spec, { version: spec.schemaVersion });
   spec.title = String(spec.title ?? "Untitled diagram");
   spec.type = String(spec.type ?? "flowchart").toLowerCase();
   spec.documentId = String(
@@ -207,8 +230,8 @@ export function normalizeSpec(input) {
 
 export function validateSpec(spec) {
   const problems = [];
-  if (spec.schemaVersion !== SCHEMA_VERSION) {
-    problems.push(`schemaVersion must be ${SCHEMA_VERSION}`);
+  if (![1, 2].includes(spec.schemaVersion)) {
+    problems.push("schemaVersion must be 1 or 2");
   }
   if (!spec.documentId || typeof spec.documentId !== "string") {
     problems.push("documentId must be a non-empty string");
@@ -262,6 +285,134 @@ export function validateSpec(spec) {
     }
   }
   return problems;
+}
+
+function migrateV1ToV2(input) {
+  const spec = normalizeLegacyForMigration(input);
+  spec.schemaVersion = 2;
+  spec.nodes = spec.nodes.map((node, index) => ({
+    ...node,
+    id: String(node.id ?? `node-${index + 1}`),
+    label: String(node.label ?? node.name ?? node.id ?? `Node ${index + 1}`),
+    kind: String(node.kind ?? defaultNodeKind(spec.type, index, spec.nodes.length)),
+  }));
+  for (const node of spec.nodes) delete node.name;
+
+  spec.edges = spec.edges.map((edge, index) => {
+    const migrated = {
+      ...edge,
+      id: String(edge.id ?? `edge-${index + 1}`),
+      from: String(edge.from ?? ""),
+      to: String(edge.to ?? ""),
+      kind: String(edge.kind ?? defaultEdgeKind(spec.type)),
+    };
+    if (edge.label != null) migrated.label = String(edge.label);
+    if (spec.type === "sequence") migrated.order = Number.isInteger(edge.order) ? edge.order : index;
+    if (spec.type === "er") {
+      migrated.data = migrateErData(edge);
+      delete migrated.relationship;
+      delete migrated.cardinality;
+    }
+    return migrated;
+  });
+  if (spec.type === "sequence") {
+    spec.nodes = spec.nodes.map((node, index) => ({
+      ...node,
+      order: Number.isInteger(node.order) ? node.order : index,
+    }));
+  }
+  if (spec.type === "gantt") {
+    spec.nodes = spec.nodes.map((node) => ({ ...node, data: migrateGanttData(node.data) }));
+  }
+  spec.groups = spec.groups.map((group, index) => ({
+    ...group,
+    id: String(group.id ?? `group-${index + 1}`),
+    label: String(group.label ?? group.id ?? `Group ${index + 1}`),
+  }));
+  spec.lanes = spec.lanes.map((lane, index) => ({
+    ...lane,
+    id: String(lane.id ?? `lane-${index + 1}`),
+    label: String(lane.label ?? lane.id ?? `Lane ${index + 1}`),
+    order: Number.isInteger(lane.order) ? lane.order : index,
+  }));
+  spec.annotations = spec.annotations.map((annotation, index) => ({
+    ...annotation,
+    id: String(annotation.id ?? `annotation-${index + 1}`),
+    text: String(annotation.text ?? ""),
+  }));
+  return spec;
+}
+
+function normalizeLegacyForMigration(input) {
+  const spec = clone(input);
+  spec.title = String(spec.title ?? "Untitled diagram");
+  spec.type = String(spec.type ?? "flowchart").toLowerCase();
+  spec.documentId = String(
+    spec.documentId ?? `doc-${slugify(spec.title) || hash32(JSON.stringify(spec.nodes ?? []))}`,
+  );
+  spec.nodes = Array.isArray(spec.nodes) ? spec.nodes : [];
+  spec.edges = Array.isArray(spec.edges) ? spec.edges : [];
+  spec.groups = Array.isArray(spec.groups) ? spec.groups : [];
+  spec.lanes = Array.isArray(spec.lanes) ? spec.lanes : [];
+  spec.annotations = Array.isArray(spec.annotations) ? spec.annotations : [];
+  return spec;
+}
+
+function defaultNodeKind(type, index, count) {
+  if (type === "class") return "class";
+  if (type === "er") return "entity";
+  if (type === "architecture") return "component";
+  if (type === "sequence") return "service";
+  if (type === "mindmap") return index === 0 ? "root" : "concept";
+  if (type === "state") return index === 0 ? "start" : index === count - 1 ? "end" : "state";
+  if (type === "gantt") return "task";
+  if (type === "timeline") return "event";
+  return "process";
+}
+
+function defaultEdgeKind(type) {
+  if (type === "class") return "association";
+  if (type === "er") return "relationship";
+  if (type === "state") return "transition";
+  if (type === "dataflow") return "flow";
+  return "directed";
+}
+
+function migrateErData(edge) {
+  const data = { ...(edge.data ?? {}) };
+  if (data.relationship == null && edge.relationship != null) data.relationship = String(edge.relationship);
+  data.fromCardinality ??= edge.cardinality?.from;
+  data.toCardinality ??= edge.cardinality?.to;
+  if (data.fromCardinality != null) data.fromCardinality = canonicalCardinality(data.fromCardinality);
+  if (data.toCardinality != null) data.toCardinality = canonicalCardinality(data.toCardinality);
+  if (data.fromCardinality == null || data.toCardinality == null) {
+    const match = String(edge.label ?? "").match(/^\s*([^:]+)\s*:\s*([^:]+)\s*$/u);
+    if (match) {
+      data.fromCardinality ??= canonicalCardinality(match[1]);
+      data.toCardinality ??= canonicalCardinality(match[2]);
+    }
+  }
+  return data;
+}
+
+function migrateGanttData(input) {
+  const data = { ...(input ?? {}) };
+  if (data.durationDays == null && data.duration != null) {
+    const match = String(data.duration).match(/^(\d+)d$/u);
+    const days = match ? Number(match[1]) : Number(data.duration);
+    if (Number.isInteger(days) && days > 0) data.durationDays = days;
+  }
+  delete data.duration;
+  return data;
+}
+
+function canonicalCardinality(value) {
+  const token = String(value).trim().toLowerCase();
+  if (["1", "one", "exactly-one"].includes(token)) return "one";
+  if (["0..1", "zero-or-one", "optional"].includes(token)) return "zero-or-one";
+  if (["1..*", "1..n", "one-or-more"].includes(token)) return "one-or-more";
+  if (["*", "n", "many", "0..*", "0..n", "zero-or-more"].includes(token)) return "zero-or-more";
+  return value;
 }
 
 export function readJsonPathHint(filePath) {

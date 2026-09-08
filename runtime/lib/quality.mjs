@@ -1,17 +1,19 @@
-import { isFiniteNumber, round } from "./core.mjs";
+import { DEFAULT_FONT_SIZES, isFiniteNumber, round } from "./core.mjs";
+import { qualityReport } from "./diagnostics.mjs";
 import { measureText } from "./text.mjs";
 
-export function validateDocument(document) {
+export function validateDocument(document, options = {}) {
   const errors = [];
   const warnings = [];
   if (!document || typeof document !== "object") {
-    return report([{ code: "document.invalid", message: "Document must be an object." }], []);
+    return qualityReport([{ code: "document.invalid", message: "Document must be an object." }], [], options);
   }
   if (document.type !== "excalidraw") push(errors, "document.type", "Top-level type must be excalidraw.");
   if (document.version !== 2) push(errors, "document.version", "Top-level version must be 2.");
+  validateMetadata(document.drawingMaster, errors, options.requireMetadata === true);
   if (!Array.isArray(document.elements)) {
     push(errors, "document.elements", "elements must be an array.");
-    return report(errors, warnings);
+    return qualityReport(errors, warnings, options);
   }
 
   const ids = new Set();
@@ -33,7 +35,22 @@ export function validateDocument(document) {
   validateTextCapacity(document.elements, byId, warnings);
   validateEdgeIntersections(document.elements, byId, warnings);
   validateLargeDiagram(document.elements, warnings);
-  return report(errors, warnings);
+  return qualityReport(errors, warnings, options);
+}
+
+function validateMetadata(metadata, errors, required) {
+  if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) {
+    if (required) push(errors, "metadata.missing", "drawingMaster metadata is required.");
+    return;
+  }
+  for (const field of ["documentId", "specHash", "runtimeVersion", "schemaVersion"]) {
+    if (required && (metadata[field] == null || metadata[field] === "")) {
+      push(errors, "metadata.field", `drawingMaster metadata field ${field} is required.`);
+    }
+  }
+  if (metadata.specHash && !/^[0-9a-f]{64}$/u.test(String(metadata.specHash))) {
+    push(errors, "metadata.specHash", "drawingMaster specHash must be a SHA-256 hex digest.");
+  }
 }
 
 function validateGeometry(element, errors) {
@@ -129,7 +146,11 @@ function validateTextCapacity(elements, byId, warnings) {
   for (const text of elements.filter((element) => element.type === "text" && element.containerId)) {
     const container = byId.get(text.containerId);
     if (!container || container.type === "arrow") continue;
-    const measured = measureText(text.originalText ?? text.text ?? "", text.fontSize ?? 20, Math.max(40, container.width - 28));
+    const measured = measureText(
+      text.originalText ?? text.text ?? "",
+      text.fontSize ?? DEFAULT_FONT_SIZES.node,
+      Math.max(40, container.width - 28),
+    );
     if (measured.width > container.width - 16 || measured.height > container.height - 12) {
       push(warnings, "visual.textOverflow", `${text.id} may overflow ${container.id}.`, text.id);
     }
@@ -219,16 +240,4 @@ function shareEndpoint(a, b) {
 
 function push(target, code, message, elementId = null) {
   target.push({ code, message, ...(elementId ? { elementId } : {}) });
-}
-
-function report(errors, warnings) {
-  return {
-    valid: errors.length === 0,
-    errors,
-    warnings,
-    summary: {
-      errors: errors.length,
-      warnings: warnings.length,
-    },
-  };
 }

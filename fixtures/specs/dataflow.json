@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 2,
+  "documentId": "fixture-order-dataflow",
+  "title": "订单数据流",
+  "type": "dataflow",
+  "nodes": [
+    { "id": "client", "label": "客户端", "kind": "external-entity" },
+    { "id": "service", "label": "订单处理", "kind": "process" },
+    { "id": "store", "label": "订单库", "kind": "data-store" }
+  ],
+  "edges": [
+    { "id": "request", "from": "client", "to": "service", "label": "订单请求", "kind": "flow" },
+    { "id": "persist", "from": "service", "to": "store", "label": "订单记录", "kind": "flow" }
+  ]
+}

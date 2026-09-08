@@ -1,5 +1,8 @@
-import { round } from "./core.mjs";
+import { DEFAULT_FONT_SIZES, round } from "./core.mjs";
+import { routeEdges } from "./geometry.mjs";
 import { measureText } from "./text.mjs";
+
+export { connectionGeometry } from "./geometry.mjs";
 
 const DEFAULTS = Object.freeze({
   margin: 120,
@@ -42,14 +45,24 @@ export function layoutDiagram(spec, options = {}) {
 
   (strategies[spec.type] ?? gridLayout)(spec, nodes, settings);
   applyStablePositions(spec, nodes, existing);
-  settleNewNodes(nodes, existing, settings);
+  const fixedNodeIds = new Set([
+    ...existing.keys(),
+    ...spec.nodes.filter((node) => node.position).map((node) => node.id),
+  ]);
+  settleNewNodes(nodes, fixedNodeIds, settings);
   const frames = buildFrames(spec, nodes, settings);
   assignFrames(nodes, frames);
-  return { nodes, frames, settings };
+  const routes = routeEdges(spec.edges, nodes, {
+    measureLabel(label, edge) {
+      const fontSize = Number(edge.style?.fontSize ?? DEFAULT_FONT_SIZES.edge);
+      return measureText(label, fontSize, 240);
+    },
+  });
+  return { nodes, frames, routes, settings };
 }
 
 function sizedNode(node, chartType, settings) {
-  const fontSize = Number(node.style?.fontSize ?? 20);
+  const fontSize = Number(node.style?.fontSize ?? DEFAULT_FONT_SIZES.node);
   const text = measureText(node.label, fontSize, 280);
   const baseWidth = chartType === "class" || chartType === "er" ? 230 : settings.nodeWidth;
   const baseHeight = chartType === "class" || chartType === "er" ? 112 : settings.nodeHeight;
@@ -89,9 +102,11 @@ function layeredLayout(spec, nodes, settings) {
     rankNodes.forEach((node, index) => {
       if (direction === "LR") {
         node.x = settings.margin + rank * (settings.nodeWidth + settings.gapX);
-        node.y = settings.margin + index * (settings.nodeHeight + settings.gapY);
+        const centerY = settings.margin + settings.nodeHeight / 2 + index * (settings.nodeHeight + settings.gapY);
+        node.y = centerY - node.height / 2;
       } else {
-        node.x = settings.margin + index * (settings.nodeWidth + settings.gapX);
+        const centerX = settings.margin + settings.nodeWidth / 2 + index * (settings.nodeWidth + settings.gapX);
+        node.x = centerX - node.width / 2;
         node.y = settings.margin + rank * (settings.nodeHeight + settings.gapY);
       }
     });
@@ -166,14 +181,33 @@ function swimlaneLayout(spec, nodes, settings) {
 }
 
 function ganttLayout(spec, nodes, settings) {
-  [...nodes.values()].sort(orderNodes).forEach((node, index) => {
-    const start = Number(node.data?.start ?? 0);
-    const duration = Math.max(1, Number(node.data?.duration ?? 1));
+  const starts = [...nodes.values()]
+    .map((node) => parseIsoDay(node.data?.start))
+    .filter(Number.isFinite);
+  const firstDay = starts.length > 0 ? Math.min(...starts) : null;
+  let y = settings.margin;
+  [...nodes.values()].sort(orderNodes).forEach((node) => {
+    const parsedStart = parseIsoDay(node.data?.start);
+    const start = Number.isFinite(parsedStart) && firstDay != null
+      ? parsedStart - firstDay
+      : Number(node.data?.start ?? 0);
+    const parsedEnd = parseIsoDay(node.data?.end);
+    const duration = Math.max(1, Number(node.data?.durationDays
+      ?? node.data?.duration
+      ?? (Number.isFinite(parsedStart) && Number.isFinite(parsedEnd) ? parsedEnd - parsedStart + 1 : 1)));
     node.x = settings.margin + 180 + start * 80;
-    node.y = settings.margin + index * 100;
+    node.y = y;
     node.width = Math.max(100, duration * 80);
-    node.height = 54;
+    const fontSize = Number(node.style?.fontSize ?? DEFAULT_FONT_SIZES.node);
+    const text = measureText(node.label, fontSize, Math.max(40, node.width - 28));
+    node.height = Number(node.size?.height ?? Math.max(54, text.height + 24));
+    y += node.height + 46;
   });
+}
+
+function parseIsoDay(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/u.test(String(value ?? ""))) return Number.NaN;
+  return Date.parse(`${value}T00:00:00Z`) / 86400000;
 }
 
 function timelineLayout(spec, nodes, settings) {
@@ -205,14 +239,18 @@ function matrixLayout(spec, nodes, settings) {
 function stackLayout(spec, nodes, settings) {
   const values = [...nodes.values()].sort(orderNodes);
   const maxWidth = 700;
+  let y = settings.margin;
   values.forEach((node, index) => {
     const ratio = spec.type === "funnel"
       ? 1 - (index / Math.max(1, values.length)) * 0.6
       : 0.4 + (index / Math.max(1, values.length - 1)) * 0.6;
     node.width = Math.max(180, maxWidth * ratio);
-    node.height = 86;
+    const fontSize = Number(node.style?.fontSize ?? DEFAULT_FONT_SIZES.node);
+    const text = measureText(node.label, fontSize, Math.max(40, node.width - 28));
+    node.height = Number(node.size?.height ?? Math.max(86, text.height + 36));
     node.x = settings.margin + (maxWidth - node.width) / 2;
-    node.y = settings.margin + index * 110;
+    node.y = y;
+    y += node.height + 24;
   });
 }
 
@@ -298,9 +336,9 @@ function applyStablePositions(spec, nodes, existing) {
   }
 }
 
-function settleNewNodes(nodes, existing, settings) {
-  const occupied = [...nodes.values()].filter((node) => existing.has(node.id));
-  for (const node of [...nodes.values()].filter((item) => !existing.has(item.id))) {
+function settleNewNodes(nodes, fixedNodeIds, settings) {
+  const occupied = [...nodes.values()].filter((node) => fixedNodeIds.has(node.id));
+  for (const node of [...nodes.values()].filter((item) => !fixedNodeIds.has(item.id))) {
     let attempts = 0;
     while (occupied.some((other) => overlaps(node, other, 40)) && attempts < 50) {
       node.y += settings.nodeHeight + settings.gapY;
@@ -375,39 +413,4 @@ function orderNodes(a, b) {
 
 export function nodeCenter(node) {
   return { x: node.x + node.width / 2, y: node.y + node.height / 2 };
-}
-
-export function connectionGeometry(from, to) {
-  const a = nodeCenter(from);
-  const b = nodeCenter(to);
-  const dx = b.x - a.x;
-  const dy = b.y - a.y;
-  let startFixedPoint;
-  let endFixedPoint;
-  let start;
-  let end;
-
-  if (Math.abs(dx) >= Math.abs(dy)) {
-    const rightward = dx >= 0;
-    startFixedPoint = [rightward ? 1 : 0, 0.5];
-    endFixedPoint = [rightward ? 0 : 1, 0.5];
-    start = { x: rightward ? from.x + from.width : from.x, y: a.y };
-    end = { x: rightward ? to.x : to.x + to.width, y: b.y };
-  } else {
-    const downward = dy >= 0;
-    startFixedPoint = [0.5, downward ? 1 : 0];
-    endFixedPoint = [0.5, downward ? 0 : 1];
-    start = { x: a.x, y: downward ? from.y + from.height : from.y };
-    end = { x: b.x, y: downward ? to.y : to.y + to.height };
-  }
-
-  return {
-    x: round(start.x),
-    y: round(start.y),
-    width: round(Math.abs(end.x - start.x)),
-    height: round(Math.abs(end.y - start.y)),
-    points: [[0, 0], [round(end.x - start.x), round(end.y - start.y)]],
-    startFixedPoint,
-    endFixedPoint,
-  };
 }

@@ -1,7 +1,7 @@
 {
   "name": "drawing-master-agent",
-  "version": "0.1.0",
-  "description": "A self-contained OpenCode subagent for creating and editing Excalidraw diagrams.",
+  "version": "0.3.0",
+  "description": "A self-contained OpenCode subagent for managed Excalidraw, Mermaid, and draw.io diagrams.",
   "private": true,
   "license": "MIT",
   "repository": {
@@ -12,6 +12,8 @@
     "opencode",
     "agent",
     "excalidraw",
+    "mermaid",
+    "drawio",
     "diagram"
   ],
   "type": "module",

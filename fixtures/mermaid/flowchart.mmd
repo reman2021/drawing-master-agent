@@ -1,0 +1,11 @@
+%% drawing-master {"documentId":"fixture-login-flow","specHash":"136365a19590890a21b6b52f07cfcd8ac3c87d65598592502617c981cef11d3d","runtimeVersion":"0.3.0","schemaVersion":1,"formatVersion":1,"chartType":"flowchart","diagramType":"flowchart"}
+flowchart TB
+  n_1rpa9s6(["开始"])
+  n_142kqka["输入账号和密码"]
+  n_ztlvl4{"凭证有效？"}
+  n_87m55d(["进入系统"])
+  n_1p6a7bg["提示错误"]
+  n_1rpa9s6 --> n_142kqka
+  n_142kqka --> n_ztlvl4
+  n_ztlvl4 -->|"是"| n_87m55d
+  n_ztlvl4 -->|"否"| n_1p6a7bg

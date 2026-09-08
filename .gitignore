@@ -9,6 +9,9 @@ coverage/
 /.drawing-master/
 /drawings/
 /*.excalidraw
+/*.drawio
+/*.mmd
+/*.mermaid
 
 .env
 .env.*

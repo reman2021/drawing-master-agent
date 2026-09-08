@@ -30,7 +30,6 @@ const releaseEntries = [
   "CHANGELOG.md",
   "CONTEXT.md",
   "CONTRIBUTING.md",
-  "DRAWING-MASTER-PLAN.md",
   "LICENSE",
   "NOTICE.md",
   "package.json",

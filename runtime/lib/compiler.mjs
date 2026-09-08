@@ -1,5 +1,6 @@
 import {
   commonElement,
+  DEFAULT_FONT_SIZES,
   normalizeSpec,
   round,
   stableId,
@@ -7,7 +8,8 @@ import {
   DEFAULT_THEME,
   RUNTIME_VERSION,
 } from "./core.mjs";
-import { connectionGeometry, layoutDiagram, nodeCenter } from "./layout.mjs";
+import { hashSpec } from "./formats.mjs";
+import { layoutDiagram, nodeCenter } from "./layout.mjs";
 import { measureText } from "./text.mjs";
 
 const VISUAL_FIELDS = [
@@ -28,6 +30,7 @@ const POSITION_FIELDS = ["x", "y", "width", "height"];
 
 export function compileSpec(input, options = {}) {
   const spec = normalizeSpec(input);
+  const specHash = hashSpec(spec);
   const existingDocument = options.existingDocument ?? null;
   const existingIndex = indexExisting(existingDocument, spec);
   const existingPositions = new Map();
@@ -72,10 +75,11 @@ export function compileSpec(input, options = {}) {
   for (const [edgeIndex, edgeSpec] of spec.edges.entries()) {
     const from = layout.nodes.get(edgeSpec.from);
     const to = layout.nodes.get(edgeSpec.to);
+    const route = layout.routes.get(edgeSpec.id);
     const existingEdge = existingIndex.edges.get(edgeSpec.id);
     const edge = spec.type === "sequence"
       ? makeSequenceArrow(spec, edgeSpec, edgeIndex, from, to, existingEdge)
-      : makeArrow(spec, edgeSpec, from, to, nodeElementIds, frameIds, existingEdge);
+      : makeArrow(spec, edgeSpec, from, to, route, nodeElementIds, frameIds, existingEdge);
     elements.push(edge);
 
     if (edge.startBinding) {
@@ -86,7 +90,7 @@ export function compileSpec(input, options = {}) {
     }
     if (edgeSpec.label) {
       const existingLabel = existingEdge ? findBoundText(existingDocument, existingEdge) : null;
-      const label = makeArrowLabel(spec, edgeSpec, edge, existingLabel);
+      const label = makeArrowLabel(spec, edgeSpec, edge, existingLabel, spec.type === "sequence" ? null : route);
       edge.boundElements = [...(edge.boundElements ?? []), { type: "text", id: label.id }];
       elements.push(label);
     }
@@ -118,6 +122,7 @@ export function compileSpec(input, options = {}) {
       documentId: spec.documentId,
       schemaVersion: spec.schemaVersion,
       runtimeVersion: RUNTIME_VERSION,
+      specHash,
       chartType: spec.type,
     },
   };
@@ -138,6 +143,7 @@ function makeShape(spec, nodeSpec, node, frameIds, existing) {
     semanticKind: "node",
     semanticId: nodeSpec.id,
     frameId,
+    schemaVersion: spec.schemaVersion,
   });
   shape.backgroundColor = nodeSpec.style?.backgroundColor
     ?? spec.theme.palette[Math.abs(stableSeed(nodeSpec.id)) % spec.theme.palette.length]
@@ -149,7 +155,7 @@ function makeShape(spec, nodeSpec, node, frameIds, existing) {
 }
 
 function makeBoundText(spec, nodeSpec, node, shape, existing) {
-  const fontSize = Number(nodeSpec.style?.fontSize ?? existing?.fontSize ?? 20);
+  const fontSize = Number(nodeSpec.style?.fontSize ?? existing?.fontSize ?? DEFAULT_FONT_SIZES.node);
   const measured = measureText(nodeSpec.label, fontSize, Math.max(40, shape.width - 28));
   const text = commonElement({
     id: existing?.id ?? stableId("label", spec.documentId, nodeSpec.id),
@@ -162,6 +168,7 @@ function makeBoundText(spec, nodeSpec, node, shape, existing) {
     semanticKind: "node-label",
     semanticId: nodeSpec.id,
     frameId: shape.frameId,
+    schemaVersion: spec.schemaVersion,
   });
   Object.assign(text, {
     strokeColor: nodeSpec.style?.textColor ?? existing?.strokeColor ?? spec.theme.text,
@@ -184,8 +191,7 @@ function makeBoundText(spec, nodeSpec, node, shape, existing) {
   return preserveTextStyle(text, existing, nodeSpec.style);
 }
 
-function makeArrow(spec, edgeSpec, from, to, nodeElementIds, frameIds, existing) {
-  const geometry = connectionGeometry(from, to);
+function makeArrow(spec, edgeSpec, from, to, geometry, nodeElementIds, frameIds, existing) {
   const sameFrame = from.frameSemanticId && from.frameSemanticId === to.frameSemanticId
     ? frameIds.get(from.frameSemanticId) ?? null
     : null;
@@ -200,6 +206,7 @@ function makeArrow(spec, edgeSpec, from, to, nodeElementIds, frameIds, existing)
     semanticKind: "edge",
     semanticId: edgeSpec.id,
     frameId: sameFrame,
+    schemaVersion: spec.schemaVersion,
   });
   Object.assign(arrow, {
     strokeColor: edgeSpec.style?.strokeColor ?? spec.theme.stroke,
@@ -239,6 +246,7 @@ function makeSequenceArrow(spec, edgeSpec, index, from, to, existing) {
     documentId: spec.documentId,
     semanticKind: "edge",
     semanticId: edgeSpec.id,
+    schemaVersion: spec.schemaVersion,
   });
   Object.assign(arrow, {
     strokeColor: edgeSpec.style?.strokeColor ?? spec.theme.stroke,
@@ -256,12 +264,15 @@ function makeSequenceArrow(spec, edgeSpec, index, from, to, existing) {
   return preserveElement(arrow, existing, edgeSpec, false);
 }
 
-function makeArrowLabel(spec, edgeSpec, arrow, existing) {
-  const fontSize = Number(edgeSpec.style?.fontSize ?? existing?.fontSize ?? 16);
+function makeArrowLabel(spec, edgeSpec, arrow, existing, route) {
+  const fontSize = Number(edgeSpec.style?.fontSize ?? existing?.fontSize ?? DEFAULT_FONT_SIZES.edge);
   const measured = measureText(edgeSpec.label, fontSize, Math.max(100, arrow.width - 20));
-  const point = arrow.points[Math.floor(arrow.points.length / 2)];
-  const x = arrow.x + point[0] / 2 + (arrow.points.at(-1)[0] - point[0]) / 2 - measured.width / 2;
-  const y = arrow.y + point[1] / 2 + (arrow.points.at(-1)[1] - point[1]) / 2 - measured.height / 2 - 8;
+  const point = route?.labelPoint ?? {
+    x: arrow.x + arrow.points.at(-1)[0] / 2,
+    y: arrow.y + arrow.points.at(-1)[1] / 2,
+  };
+  const x = route?.labelBounds?.x ?? point.x - measured.width / 2;
+  const y = route?.labelBounds?.y ?? point.y - measured.height / 2 - 8;
   const text = commonElement({
     id: existing?.id ?? stableId("edge-label", spec.documentId, edgeSpec.id),
     type: "text",
@@ -273,6 +284,7 @@ function makeArrowLabel(spec, edgeSpec, arrow, existing) {
     semanticKind: "edge-label",
     semanticId: edgeSpec.id,
     frameId: arrow.frameId,
+    schemaVersion: spec.schemaVersion,
   });
   Object.assign(text, {
     strokeColor: edgeSpec.style?.textColor ?? existing?.strokeColor ?? spec.theme.text,
@@ -333,6 +345,7 @@ function makeLine(spec, semanticId, x, y, dx, dy, style = {}) {
     documentId: spec.documentId,
     semanticKind: "decoration",
     semanticId,
+    schemaVersion: spec.schemaVersion,
   });
   Object.assign(line, {
     ...style,
@@ -349,7 +362,7 @@ function makeLine(spec, semanticId, x, y, dx, dy, style = {}) {
 }
 
 function makeAnnotation(spec, annotation) {
-  const fontSize = Number(annotation.style?.fontSize ?? 18);
+  const fontSize = Number(annotation.style?.fontSize ?? DEFAULT_FONT_SIZES.annotation);
   const measured = measureText(annotation.text ?? "", fontSize, 420);
   const text = commonElement({
     id: stableId("annotation", spec.documentId, annotation.id),
@@ -361,6 +374,7 @@ function makeAnnotation(spec, annotation) {
     documentId: spec.documentId,
     semanticKind: "annotation",
     semanticId: annotation.id,
+    schemaVersion: spec.schemaVersion,
   });
   Object.assign(text, {
     strokeColor: annotation.style?.textColor ?? spec.theme.text,
@@ -393,6 +407,7 @@ function makeFrame(spec, frame, frameIds, existing) {
     documentId: spec.documentId,
     semanticKind: "frame",
     semanticId: frame.semanticId,
+    schemaVersion: spec.schemaVersion,
   });
   Object.assign(element, {
     name: frame.label ?? null,

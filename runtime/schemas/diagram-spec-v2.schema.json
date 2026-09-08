@@ -1,0 +1,472 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://drawing-master.dev/schemas/diagram-spec-v2.schema.json",
+  "title": "Drawing Master DiagramSpec v2",
+  "description": "Strict public contract for a Drawing Master semantic diagram specification. Cross-reference and graph invariants are enforced by the runtime validator.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "documentId", "title", "type", "nodes", "edges"],
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "documentId": { "$ref": "#/$defs/id" },
+    "title": { "$ref": "#/$defs/nonEmptyText" },
+    "type": {
+      "enum": [
+        "flowchart", "architecture", "sequence", "er", "mindmap", "class", "state", "swimlane",
+        "orgchart", "gantt", "timeline", "tree", "network", "dataflow", "concept", "fishbone",
+        "swot", "pyramid", "funnel", "venn", "matrix", "infographic"
+      ]
+    },
+    "seed": { "type": "integer", "minimum": 1, "maximum": 2147483647 },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/node" }
+    },
+    "edges": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/edge" }
+    },
+    "groups": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/group" }
+    },
+    "lanes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/lane" }
+    },
+    "annotations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/annotation" }
+    },
+    "layout": { "$ref": "#/$defs/layout" },
+    "theme": { "$ref": "#/$defs/theme" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "const": "mindmap" } }, "required": ["type"] },
+      "then": {
+        "$comment": "The runtime additionally verifies that edges form one connected directed tree.",
+        "properties": {
+          "nodes": {
+            "contains": { "properties": { "kind": { "const": "root" } }, "required": ["kind"] },
+            "minContains": 1,
+            "maxContains": 1
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "swimlane" } }, "required": ["type"] },
+      "then": {
+        "required": ["lanes"],
+        "properties": {
+          "lanes": { "minItems": 1 },
+          "nodes": { "items": { "required": ["laneId"] } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "sequence" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "nodes": { "items": { "required": ["order"] } },
+          "edges": {
+            "items": {
+              "required": ["order", "label"],
+              "properties": { "label": { "type": "string", "minLength": 1, "maxLength": 10000 } }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "state" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "nodes": {
+            "allOf": [
+              {
+                "contains": { "properties": { "kind": { "const": "start" } }, "required": ["kind"] },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": { "properties": { "kind": { "const": "end" } }, "required": ["kind"] },
+                "minContains": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "class" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "nodes": { "items": { "properties": { "kind": { "const": "class" } } } },
+          "edges": {
+            "items": {
+              "properties": {
+                "kind": { "enum": ["association", "inheritance", "aggregation", "composition"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "er" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "nodes": { "items": { "properties": { "kind": { "const": "entity" } } } },
+          "edges": {
+            "items": {
+              "required": ["data"],
+              "properties": {
+                "data": { "required": ["fromCardinality", "toCardinality"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "gantt" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "required": ["data"],
+              "properties": {
+                "kind": { "enum": ["task", "milestone"] },
+                "data": {
+                  "required": ["start"],
+                  "oneOf": [
+                    { "required": ["durationDays"], "not": { "required": ["end"] } },
+                    { "required": ["end"], "not": { "required": ["durationDays"] } }
+                  ]
+                }
+              }
+            }
+          },
+          "edges": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "timeline" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "required": ["data"],
+              "properties": {
+                "data": {
+                  "oneOf": [
+                    { "required": ["time"], "not": { "required": ["date"] } },
+                    { "required": ["date"], "not": { "required": ["time"] } }
+                  ]
+                }
+              }
+            }
+          },
+          "edges": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "dataflow" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "properties": { "kind": { "enum": ["process", "data-store", "external-entity"] } }
+            }
+          },
+          "edges": { "items": { "properties": { "kind": { "const": "flow" } } } }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "nonEmptyText": { "type": "string", "minLength": 1, "maxLength": 10000 },
+    "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+    "order": { "type": "integer", "minimum": 0, "maximum": 1000000 },
+    "position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "number", "minimum": -1000000, "maximum": 1000000 },
+        "y": { "type": "number", "minimum": -1000000, "maximum": 1000000 }
+      }
+    },
+    "size": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "type": "number", "exclusiveMinimum": 0, "maximum": 100000 },
+        "height": { "type": "number", "exclusiveMinimum": 0, "maximum": 100000 }
+      }
+    },
+    "nodeStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "backgroundColor": { "$ref": "#/$defs/color" },
+        "strokeColor": { "$ref": "#/$defs/color" },
+        "textColor": { "$ref": "#/$defs/color" },
+        "fontSize": { "type": "number", "minimum": 8, "maximum": 96 },
+        "fontFamily": { "type": "integer", "minimum": 1, "maximum": 5 }
+      }
+    },
+    "nodeData": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "start": { "type": "string", "format": "date" },
+        "end": { "type": "string", "format": "date" },
+        "durationDays": { "type": "integer", "minimum": 1, "maximum": 365000 },
+        "section": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "time": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "date": { "type": "string", "format": "date" }
+      },
+      "allOf": [
+        {
+          "if": { "required": ["start"] },
+          "then": {
+            "oneOf": [
+              { "required": ["durationDays"], "not": { "required": ["end"] } },
+              { "required": ["end"], "not": { "required": ["durationDays"] } }
+            ]
+          }
+        },
+        {
+          "if": { "anyOf": [{ "required": ["time"] }, { "required": ["date"] }] },
+          "then": {
+            "oneOf": [
+              { "required": ["time"], "not": { "required": ["date"] } },
+              { "required": ["date"], "not": { "required": ["time"] } }
+            ]
+          }
+        }
+      ]
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "kind"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "label": { "$ref": "#/$defs/nonEmptyText" },
+        "kind": {
+          "enum": [
+            "process", "decision", "start", "end", "actor", "service", "component", "entity",
+            "attribute", "relation", "root", "concept", "class", "state", "result", "person",
+            "role", "team", "task", "milestone", "event", "system", "database", "data-store",
+            "external-entity", "input", "output", "category", "item"
+          ]
+        },
+        "shape": { "enum": ["rectangle", "ellipse", "diamond"] },
+        "groupId": { "$ref": "#/$defs/id" },
+        "laneId": { "$ref": "#/$defs/id" },
+        "level": { "$ref": "#/$defs/order" },
+        "order": { "$ref": "#/$defs/order" },
+        "position": { "$ref": "#/$defs/position" },
+        "size": { "$ref": "#/$defs/size" },
+        "style": { "$ref": "#/$defs/nodeStyle" },
+        "data": { "$ref": "#/$defs/nodeData" },
+        "existingElementId": { "$ref": "#/$defs/id" },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/source" }
+        }
+      }
+    },
+    "edgeStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strokeColor": { "$ref": "#/$defs/color" },
+        "textColor": { "$ref": "#/$defs/color" },
+        "labelBackgroundColor": { "$ref": "#/$defs/color" },
+        "fontSize": { "type": "number", "minimum": 8, "maximum": 96 },
+        "fontFamily": { "type": "integer", "minimum": 1, "maximum": 5 }
+      }
+    },
+    "cardinality": {
+      "enum": ["one", "zero-or-one", "one-or-more", "zero-or-more"]
+    },
+    "edgeData": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "relationship": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "fromCardinality": { "$ref": "#/$defs/cardinality" },
+        "toCardinality": { "$ref": "#/$defs/cardinality" }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "from", "to", "kind"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "from": { "$ref": "#/$defs/id" },
+        "to": { "$ref": "#/$defs/id" },
+        "label": { "type": "string", "maxLength": 10000 },
+        "kind": {
+          "enum": [
+            "directed", "bidirectional", "association", "return", "inheritance", "aggregation",
+            "composition", "flow", "dependency", "transition", "relationship"
+          ]
+        },
+        "order": { "$ref": "#/$defs/order" },
+        "style": { "$ref": "#/$defs/edgeStyle" },
+        "data": { "$ref": "#/$defs/edgeData" },
+        "existingElementId": { "$ref": "#/$defs/id" },
+        "startArrowhead": {
+          "type": ["string", "null"],
+          "enum": [null, "arrow", "bar", "dot", "triangle", "triangle_outline", "diamond", "diamond_outline"]
+        },
+        "endArrowhead": {
+          "type": ["string", "null"],
+          "enum": [null, "arrow", "bar", "dot", "triangle", "triangle_outline", "diamond", "diamond_outline"]
+        },
+        "fromSide": { "enum": ["top", "right", "bottom", "left"] },
+        "toSide": { "enum": ["top", "right", "bottom", "left"] },
+        "via": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/position" }
+        },
+        "labelAt": {
+          "oneOf": [
+            { "type": "number", "minimum": 0, "maximum": 1 },
+            { "$ref": "#/$defs/position" }
+          ]
+        }
+      }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "label": { "$ref": "#/$defs/nonEmptyText" },
+        "order": { "$ref": "#/$defs/order" }
+      }
+    },
+    "lane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "order"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "label": { "$ref": "#/$defs/nonEmptyText" },
+        "order": { "$ref": "#/$defs/order" }
+      }
+    },
+    "annotationStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "textColor": { "$ref": "#/$defs/color" },
+        "fontSize": { "type": "number", "minimum": 8, "maximum": 96 },
+        "fontFamily": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "textAlign": { "enum": ["left", "center", "right"] }
+      }
+    },
+    "annotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "text": { "$ref": "#/$defs/nonEmptyText" },
+        "position": { "$ref": "#/$defs/position" },
+        "size": { "$ref": "#/$defs/size" },
+        "style": { "$ref": "#/$defs/annotationStyle" }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "direction": { "enum": ["TB", "TD", "BT", "LR", "RL"] },
+        "margin": { "type": "number", "minimum": 0, "maximum": 10000 },
+        "gapX": { "type": "number", "minimum": 0, "maximum": 10000 },
+        "gapY": { "type": "number", "minimum": 0, "maximum": 10000 },
+        "nodeWidth": { "type": "number", "exclusiveMinimum": 0, "maximum": 100000 },
+        "nodeHeight": { "type": "number", "exclusiveMinimum": 0, "maximum": 100000 },
+        "framePadding": { "type": "number", "minimum": 0, "maximum": 10000 },
+        "columns": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "reflow": { "type": "boolean" }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "background": { "$ref": "#/$defs/color" },
+        "text": { "$ref": "#/$defs/color" },
+        "stroke": { "$ref": "#/$defs/color" },
+        "primary": { "$ref": "#/$defs/color" },
+        "secondary": { "$ref": "#/$defs/color" },
+        "accent": { "$ref": "#/$defs/color" },
+        "muted": { "$ref": "#/$defs/color" },
+        "danger": { "$ref": "#/$defs/color" },
+        "palette": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": { "$ref": "#/$defs/color" }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?![A-Za-z]:/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*(?:^|/)\\.git(?:/|$))(?!.*//)[^\\\\]+$"
+        },
+        "line": { "type": "integer", "minimum": 1 },
+        "endLine": { "type": "integer", "minimum": 1 },
+        "label": { "type": "string", "minLength": 1, "maxLength": 500 }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository"],
+      "properties": {
+        "repository": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["url", "revision"],
+          "properties": {
+            "url": { "type": "string", "minLength": 1, "maxLength": 2000 },
+            "revision": { "type": "string", "pattern": "^[0-9A-Fa-f]{40}$" }
+          }
+        }
+      }
+    }
+  }
+}

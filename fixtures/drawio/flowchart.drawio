@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile compressed="false" pages="1" documentId="fixture-login-flow" specHash="136365a19590890a21b6b52f07cfcd8ac3c87d65598592502617c981cef11d3d" runtimeVersion="0.3.0" schemaVersion="1" formatVersion="1">
+  <diagram id="dm-mx-page-page-1-13c964f" name="用户登录流程">
+    <mxGraphModel dx="0" dy="0" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" htmlLabels="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="dm-mx-node-start-141ftid" value="开始" style="ellipse;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#dbeafe;strokeColor=#334155;fontColor=#1e293b;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="200" height="88" as="geometry"/>
+        </mxCell>
+        <mxCell id="dm-mx-node-input-1nkg5gd" value="输入账号和密码" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#dbeafe;strokeColor=#334155;fontColor=#1e293b;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry x="110" y="328" width="220" height="88" as="geometry"/>
+        </mxCell>
+        <mxCell id="dm-mx-node-valid-fzhrqz" value="凭证有效？" style="rhombus;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#dbeafe;strokeColor=#334155;fontColor=#1e293b;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry x="120" y="536" width="200" height="88" as="geometry"/>
+        </mxCell>
+        <mxCell id="dm-mx-node-success-kzhlua" value="进入系统" style="ellipse;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#dbeafe;strokeColor=#334155;fontColor=#1e293b;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry x="500" y="744" width="200" height="88" as="geometry"/>
+        </mxCell>
+        <mxCell id="dm-mx-node-failure-vi754n" value="提示错误" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#dbeafe;strokeColor=#334155;fontColor=#1e293b;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry x="120" y="744" width="200" height="88" as="geometry"/>
+        </mxCell>
+        <mxCell id="dm-mx-edge-e1-xoyzmi" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=none;endArrow=classic;strokeColor=#334155;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontSize=18;" edge="1" parent="1" source="dm-mx-node-start-141ftid" target="dm-mx-node-input-1nkg5gd">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="dm-mx-edge-e2-xezdxj" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=none;endArrow=classic;strokeColor=#334155;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontSize=18;" edge="1" parent="1" source="dm-mx-node-input-1nkg5gd" target="dm-mx-node-valid-fzhrqz">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="dm-mx-edge-e3-x4zs8k" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=none;endArrow=classic;strokeColor=#334155;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontSize=18;" edge="1" parent="1" source="dm-mx-node-valid-fzhrqz" target="dm-mx-node-success-kzhlua">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="336" y="580"/>
+              <mxPoint x="336" y="788"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dm-mx-edge-e4-wv06jl" value="否" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=none;endArrow=classic;strokeColor=#334155;fontColor=#1e293b;labelBackgroundColor=#ffffff;fontSize=18;" edge="1" parent="1" source="dm-mx-node-valid-fzhrqz" target="dm-mx-node-failure-vi754n">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
